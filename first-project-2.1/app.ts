@@ -1,17 +1,50 @@
-function add(n1: number, n2: number, showResult: boolean) {
-  // if (typeof n1 !== 'number' || typeof n2 !== 'number') {
-  //   throw new Error('Incorrect Input');
-  // }
-  const result = n1 + n2;
-  if (showResult) {
-    console.log(resultPhrase + result);
-  }
-  return result;
+// const person: {
+//   name: string;
+//   age: number;
+// } = {
+// const person: {
+//   name: string;
+//   age: number;
+//   hobbies: string[];
+//   role: [number, string];
+// } = {
+//   name: 'Francis',
+//   age: 28,
+//   hobbies: ['Sports', 'Cooking'],
+//   role: [2, 'author'],
+// };
+
+enum Role {
+  ADMIN = 'ADMIN',
+  READ_ONLY = 100,
+  AUTHOR = 'AUTHOR',
 }
 
-const number1 = 5;
-const number2 = 2.8;
-const printResult = true;
-const resultPhrase = 'Result is ';
+const person = {
+  name: 'Francis',
+  age: 28,
+  hobbies: ['Sports', 'Cooking'],
+  role: Role.ADMIN,
+};
 
-add(number1, number2, printResult);
+// person.role.push('admin'); // This works! (quirk)
+// person.role[1] = 10;
+
+// person.role = [4, 'admin', 'user'];
+
+let favoriteActivities: string[];
+favoriteActivities = ['sports'];
+
+console.log(person.name);
+
+for (const hobby of person.hobbies) {
+  console.log(hobby.toUpperCase());
+  // console.log(hobby.map()) // ERROR!!
+}
+
+// Enums - Enums allow us to define a set of named constants. Using enums can make it easier to document intent, or create a set of distinct cases.
+// TypeScript provides both numeric and string-based enums.
+
+if (person.role === Role.AUTHOR) {
+  console.log('Author');
+}
