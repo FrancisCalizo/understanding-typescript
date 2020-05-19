@@ -1,106 +1,64 @@
-class Department {
-  // private readonly id: string;
-  // private name: string;
-  protected employees: string[] = [];
-
-  // Shorthand Initialization so we don't have to initialize above (name)
-  constructor(private readonly id: string, private name: string) {
-    // this.name = n;
-  }
-
-  describe(this: Department) {
-    console.log(`Department ${this.id}: ${this.name}`);
-  }
-
-  addEmployee(employee: string) {
-    this.employees.push(employee);
-  }
-
-  printEmployeeInformation() {
-    console.log(this.employees.length);
-    console.log(this.employees);
-  }
+// type AddFn = (a: number, b: number) => number;
+interface AddFn {
+  (a: number, b: number): number;
 }
 
-class ITDepartment extends Department {
-  admins: string[];
+let add: AddFn;
 
-  constructor(id: string, admins: string[]) {
-    super(id, 'IT');
-    this.admins = admins;
-  }
+add = (n1, n2) => {
+  return n1 + n2;
+};
+
+interface Person {
+  name: string;
+  age: number;
+
+  greet: (phrase: string) => void;
 }
 
-class AccountingDepartment extends Department {
-  private lastReport: string;
+let user1: Person;
 
-  constructor(id: string, private reports: string[]) {
-    super(id, 'Accounting');
-    this.reports = reports;
-    this.lastReport = reports[0];
-  }
+user1 = {
+  name: 'Francis',
+  age: 28,
+  greet(phrase) {
+    console.log(`${phrase} ${this.name}.`);
+  },
+};
 
-  get _lastReport() {
-    if (this.lastReport) {
-      return this.lastReport;
-    }
+user1.greet('Hi, I am');
 
-    throw new Error('No report found');
-  }
+interface Greetable extends Named {
+  readonly name?: string;
 
-  set _lastReport(value: string) {
-    if (!value) {
-      throw new Error('Please pass in a valid value');
-    }
-    this.addReport(value);
-  }
+  greet(phrase: string): void;
+}
 
-  addEmployee(name: string) {
-    if (name !== 'Max') {
-      this.employees.push(name);
+// Implementing Interfaces
+class People implements Greetable {
+  name?: string;
+  age = 30;
+
+  constructor(n?: string, public named = 'Robert') {
+    if (n) {
+      this.name = n;
     }
   }
 
-  addReport(report: string) {
-    this.reports.push(report);
-    this.lastReport = report;
-  }
-
-  getReports() {
-    console.log(this.reports);
+  greet(phrase: string) {
+    if (this.name) {
+      console.log(phrase + ' ' + this.name);
+    } else {
+      console.log('Hi!');
+    }
   }
 }
 
-const it = new ITDepartment('D1', ['Max']);
+let user2: Greetable;
+user2 = new People();
+console.log(user2);
 
-it.addEmployee('Bob');
-it.addEmployee('Terrance');
-
-// This wont work because accounting.employees is marked as private
-// accounting.employees[0] = 'tbag'
-
-it.printEmployeeInformation();
-
-it.describe();
-console.log(it);
-
-const accounting = new AccountingDepartment('A1', []);
-
-// Setter for Last Report
-accounting._lastReport = 'Yayeet';
-
-accounting.addReport('Something went wrong...');
-
-// Getter for Last Report
-console.log(accounting._lastReport);
-
-accounting.getReports();
-
-accounting.addEmployee('Max');
-accounting.addEmployee('Richard');
-
-console.log(accounting);
-
-// const accountingCopy = { name: 'Pat', describe: accounting.describe };
-
-// accountingCopy.describe();
+interface Named {
+  readonly named: string;
+  outputName?: string;
+}
