@@ -3,7 +3,7 @@ Good Article for Generics - https://medium.com/@rossbulat/typescript-generics-ex
 ## Generics
 
 Generics allow you to create components that can work over a variety of types rather than a single one.
-Generics give us the ability to pass in a range of types into functions, interfaces, and classes and ads an extra layer of abstraction and reusability in our code.
+Generics give us the ability to pass in a range of types into functions, interfaces, and classes and adds an extra layer of abstraction and reusability in our code.
 
 Generics give us flexibility combined with type safety.
 
