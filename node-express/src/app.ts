@@ -1,13 +1,12 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { json } from 'body-parser';
 
 import todoRoutes from './routes/todos';
 
 const app = express();
 
-app.use(json());
+app.use(express.json());
 
-app.use('./todos', todoRoutes);
+app.use('/todos', todoRoutes);
 
 // With 4 Parameters, this will be a Error Middleware Function
 // The Error parameter will be the first argument. You will need to specify types
